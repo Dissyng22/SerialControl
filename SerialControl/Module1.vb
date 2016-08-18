@@ -20,18 +20,26 @@ Module Module1
         Dim angle As String = String.Empty
         Dim time As String = String.Empty
         If clArgs.Count() > 1 Then
-            For i As Integer = 1 To clArgs.Count() - 1 Step 2
-                If clArgs(i) = "-s" Then
-                    servo = clArgs(i + 1)
-                ElseIf clArgs(i) = "-a" Then
-                    angle = clArgs(i + 1)
-                ElseIf clArgs(i) = "-t" Then
-                    time = clArgs(i + 1)
-                ElseIf clArgs(i) = "-r" Then
-                    Release()
-                    Exit Sub
-                End If
-            Next
+            If clArgs(1) = "-pain" Then
+                servo = "2"
+                angle = clArgs(2)
+                time = clArgs(3)
+            ElseIf clArgs(1) = "-tease" Then
+                servo = "1"
+                angle = clArgs(2)
+                time = clArgs(3)
+            ElseIf clArgs(1) = "-release" Then
+                Release()
+                Exit Sub
+            ElseIf clArgs(1) = "-lock" Then
+                Release()
+                Exit Sub
+            ElseIf clArgs(1) = "-?" Then
+                Console.WriteLine("Help")
+                Console.WriteLine("Valid options")
+                Exit Sub
+
+            End If
         End If
 
         Dim mybaud As String = MySettings.Default.BaudRate
@@ -44,6 +52,8 @@ Module Module1
             mySerialPort.Open()
         Catch ex As Exception
             Console.WriteLine(ex.Message)
+            Exit Sub
+
         End Try
 
         mySerialPort.Write(servo + angle)
