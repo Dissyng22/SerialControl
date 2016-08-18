@@ -7,8 +7,8 @@
 
 #include <Servo.h> 
 String readString, servo, stangle;
-int s1angle = 90;
-int s2angle = 90;
+int s1angle = 20;
+int s2angle = 0;
 Servo myservo1;  // create servo object to control a servo 
 Servo myservo2;
 const int releasepin = 13;
