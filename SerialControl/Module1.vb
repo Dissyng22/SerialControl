@@ -20,7 +20,7 @@ Module Module1
         Dim angle As String = String.Empty
         Dim time As String = String.Empty
         If clArgs.Count() > 1 Then
-            For i As Integer = 1 To clArgs.Count() Step 2
+            For i As Integer = 1 To clArgs.Count() - 1 Step 2
                 If clArgs(i) = "-s" Then
                     servo = clArgs(i + 1)
                 ElseIf clArgs(i) = "-a" Then
@@ -28,11 +28,12 @@ Module Module1
                 ElseIf clArgs(i) = "-t" Then
                     time = clArgs(i + 1)
                 ElseIf clArgs(i) = "-r" Then
-
                 End If
             Next
         End If
-
+        Console.Write(servo)
+        Console.Write(angle)
+        Console.Write(time)
 
 
         Dim mybaud As String = MySettings.Default.BaudRate
