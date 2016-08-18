@@ -28,13 +28,11 @@ Module Module1
                 ElseIf clArgs(i) = "-t" Then
                     time = clArgs(i + 1)
                 ElseIf clArgs(i) = "-r" Then
+                    Release()
+                    Exit Sub
                 End If
             Next
         End If
-        Console.Write(servo)
-        Console.Write(angle)
-        Console.Write(time)
-
 
         Dim mybaud As String = MySettings.Default.BaudRate
         With mySerialPort
@@ -47,7 +45,25 @@ Module Module1
         Catch ex As Exception
             Console.WriteLine(ex.Message)
         End Try
-        mySerialPort.Write("2180")
-    End Sub
 
+        mySerialPort.Write(servo + angle)
+        System.Threading.Thread.Sleep(time * 1000)
+        mySerialPort.Write(servo + "0")
+
+    End Sub
+    Sub Release()
+        Dim mybaud As String = MySettings.Default.BaudRate
+        With mySerialPort
+            .PortName = MySettings.Default.ComPort
+            .BaudRate = Convert.ToInt32(mybaud)
+        End With
+
+        Try
+            mySerialPort.Open()
+        Catch ex As Exception
+            Console.WriteLine(ex.Message)
+        End Try
+
+        mySerialPort.Write("3")
+    End Sub
 End Module
