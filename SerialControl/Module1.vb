@@ -20,7 +20,7 @@ Module Module1
         Dim servo As String = String.Empty
         Dim angle As String = String.Empty
         Dim time As String = String.Empty
-        Dim intcount As Int16
+
         If clArgs.Count() > 1 Then
             strcmd = clArgs(1)
             If clArgs.Count() > 2 Then
