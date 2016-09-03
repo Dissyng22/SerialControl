@@ -16,31 +16,37 @@ Module Module1
         End If
 
         'Parse arguments
+        Dim strcmd As String = String.Empty
         Dim servo As String = String.Empty
         Dim angle As String = String.Empty
         Dim time As String = String.Empty
+        Dim intcount As Int16
         If clArgs.Count() > 1 Then
-            If clArgs(1) = "-pain" Then
+            strcmd = clArgs(1)
+            If clArgs.Count() > 2 Then
+                angle = clArgs(2)
+            End If
+            If clArgs.Count() > 3 Then
+                time = clArgs(3)
+            End If
+        End If
+        Select Case strcmd
+            Case "-pain"
                 servo = "2"
-                angle = clArgs(2)
-                time = clArgs(3)
-            ElseIf clArgs(1) = "-tease" Then
+            Case "-tease"
                 servo = "1"
-                angle = clArgs(2)
-                time = clArgs(3)
-            ElseIf clArgs(1) = "-release" Then
+            Case "-release"
                 Release()
                 Exit Sub
-            ElseIf clArgs(1) = "-lock" Then
-                Release()
+            Case "-lock"
                 Exit Sub
-            ElseIf clArgs(1) = "-?" Then
+            Case "-?"
                 Console.WriteLine("Help")
                 Console.WriteLine("Valid options")
                 Exit Sub
+        End Select
 
-            End If
-        End If
+
 
         Dim mybaud As String = MySettings.Default.BaudRate
         With mySerialPort
